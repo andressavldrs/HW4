@@ -3,16 +3,17 @@ class MoviesController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
+    @director = @movie.director
     # will render app/views/movies/show.<extension> by default
   end
 
   # def all_ratings
   #   %w(G PG PG-13 NC-17 R)
   # end
-  
+
   def index
     #@movies = Movie.all #first version
-    #### Version below is deprecated due to issues on params to_h in current Rails 5  
+    #### Version below is deprecated due to issues on params to_h in current Rails 5
     #### For more detais, see https://stackoverflow.com/questions/34949505/unable-to-retrieve-hash-values-from-parameter/34951198#34951198?newreg=0d502608c9d148b0893decf2995fe3d2
     # params.permit(:sort, :ratings)
     # sort = params[:sort] || session[:sort]
@@ -39,8 +40,8 @@ class MoviesController < ApplicationController
     #  end
     # #@movies = Movie.order(ordering)
     # @movies = Movie.where(rating: @selected_ratings.keys).order(ordering)
-  
-    @movies = Movie.all 
+
+    @movies = Movie.all
     sort = params[:sort_by] || session[:sort_by]
     case sort
     when 'title'

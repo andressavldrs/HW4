@@ -4,7 +4,7 @@
 = form_tag movies_path, :method => :get, :id => 'ratings_form' do
   = hidden_field_tag "title_sort", true if @title_header
   = hidden_field_tag "release_date_sort", true if @date_header
-  Include: 
+  Include:
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]", 1, @selected_ratings.include?(rating), :id => "ratings_#{rating}"
@@ -20,13 +20,15 @@
       %th= link_to 'Movie Title', controller: 'movies', action: 'index', id: 'title_header', sort_by: 'title'
       %th Rating
       %th= link_to 'Release Date', controller: 'movies', action: 'index', id: 'release_date_header', sort_by: 'release_date'
+      %th Director
       %th More Info
   %tbody
     - @movies.each do |movie|
       %tr
-        %td= movie.title 
+        %td= movie.title
         %td= movie.rating
         %td= movie.release_date
+        %td= movie.director
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
